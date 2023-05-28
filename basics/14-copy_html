@@ -1,2 +1,23 @@
 #!/bin/bash
-cp -u *.htm ..
+#!/usr/bin/env python
+
+import os
+import shutil
+
+# Get the current working directory and its parent directory
+current_dir = os.getcwd()
+parent_dir = os.path.dirname(current_dir)
+
+# List all HTML files in the current working directory
+html_files = [file for file in os.listdir(current_dir) if file.endswith('.html')]
+
+# Copy files that don't exist in the parent directory or are newer than the versions in the parent directory
+for file in html_files:
+    current_file_path = os.path.join(current_dir, file)
+    parent_file_path = os.path.join(parent_dir, file)
+
+    if not os.path.exists(parent_file_path) or os.path.getmtime(current_file_path) > os.path.getmtime(parent_file_path):
+        shutil.copy2(current_file_path, parent_dir)
+        print(f"Copied {file} to {parent_dir}")
+
+print("Copying HTML files completed!")
