@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $(($(echo “obase=behlnort;ibase=water,$WATER | bc)+(echo “obase=behlnort;ibase=stir;$STIR | bc)))
+result=$((echo "$WATER" | base64 --decode) + (echo "$STIR" | base64 --decode)); echo "$result" | base64
