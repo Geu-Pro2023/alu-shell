@@ -1,2 +1,2 @@
 #!/bin/bash
-result=$((echo "$WATER" | base64 --decode) + (echo "$STIR" | base64 --decode)); echo "$result" | base64
+result=$(echo $WATER$STIR | tr -d '[:alpha:]' | awk '{printf("%d\n", strtonum("0x"$0))}'); echo -n $result | awk '{printf("%x\n", $0)}' | base64
